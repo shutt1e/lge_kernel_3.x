@@ -1,0 +1,124 @@
+config MACH_LGE
+	bool
+
+menu "LGE Device-Specific Changes"
+
+menu "LGE Board Selection"
+
+config MACH_MSM8X55_VICTOR
+	depends on ARCH_MSM7X30
+	depends on !MSM_STACKED_MEMORY
+	select MACH_LGE
+	bool "MSM8x55 VICTOR"
+	help
+	  Support for the LGE MSM8x55 VICTOR board.
+
+config MACH_MSM8X55_UNIVA_Q
+	depends on ARCH_MSM7X30
+	depends on !MSM_STACKED_MEMORY
+	select MACH_LGE
+	bool "MSM8x55 UNIVA_Q"
+	help
+	  Support for the LGE MSM8x55 UNIVA_Q board.
+
+config MACH_MSM8X55_FLIP
+	depends on ARCH_MSM7X30
+	depends on !MSM_STACKED_MEMORY
+	select MACH_LGE
+	bool "MSM8x55 FLIP"
+	help
+	  Support for the LGE MSM8x55 FLIP board.
+
+endmenu
+
+config LGE_HEADSET_2GPIO
+    bool
+
+config LGE_HEADSET_MAX14579
+	tristate "LGE GPIO 2 Wire detection driver using MAX14579"
+	default n
+	depends on MACH_LGE
+	select LGE_HEADSET_2GPIO
+	help
+	  LGE GPIO 2 Wire detection driver by using MAX14579
+
+config LGE_PROC_COMM
+	bool "LGE proc_comm protocol"
+	depends on MACH_LGE
+	default N
+	help
+
+	  Support for the LGE proc_comm protocol.
+
+config LGE_SUPPORT_AT_CMD
+	bool "Support LGE AT_CMD system"
+	default n
+	depends on MACH_LGE
+	help
+	 LGE AT_CMD Support
+
+config LGE_ATCMD_TTY
+	bool "Support LGE atcmd bypassing tty"
+	default n
+	help
+	  Support LGE atcmd bypassing tty. "/dev/atcmd-tty0" is back-end tty,
+	  and "dev/atcmd-tty1" is front-end tty. Back-end tty will be interfaced
+	  with portbridge and front-end tty will be interfaced with parser/filter.
+
+config LGE_REPORT_RMT_STORAGE_CLIENT_READY
+   bool "Report that RMT_STORAGE_CLIENT is ready to modem"
+   depends on MACH_LGE
+   default n
+   help 
+     Report that Remote storage client is ready to modem.
+     After this signal modem can call efs_sync().
+     
+
+config LGE_HANDLE_PANIC
+	tristate "Support LGE Kernel Panic Handler"
+	default n
+	depends on MACH_LGE
+	depends on ANDROID_RAM_CONSOLE
+	help
+	  LGE crash handler
+
+config LGE_AUDIO_LOOPBACK
+	bool "Support LGE audio loopback"
+	default n
+	depends on MACH_LGE
+	help
+	 Support LGE audio loopback. 
+
+
+# LGE_UPDATE_S kideok.kim@lge.com 20110717 hidden_reset_porting from Victor.
+config LGE_HIDDEN_RESET_PATCH
+    bool "Support LGE hidden reset function"
+	default n
+	depends on MACH_LGE
+	depends on ANDROID_RAM_CONSOLE
+	help
+	 LGE hidden reset function
+#LGE_UPDATE_E kideok.kim@lge.com 20110717 hidden_reset_porting from Victor.
+
+
+config LGE_FACTORY_PATCH
+	bool "LGE workaround patch for factory process"
+	default n
+	help
+	  This patch is added for factory process in PV event
+	  This supports Calibration process and user factory reset
+
+config LGE_RPC_DOG_CRASH_DEBUG
+	bool "LGE RPC DOG Crash debug patch"
+	default n
+	help
+	  This patch will be reduce performance and have too many kernel logs
+
+config LGE_RPC_DOG_CRASH_DEBUG_SMEM
+	bool "LGE RPC DOG Crash debug patch by SMEM area"
+	default n
+	help
+	  This patch will be write logs at SMEM area
+
+
+endmenu
